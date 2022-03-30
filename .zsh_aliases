@@ -1,0 +1,3 @@
+# Aliases
+alias pj="ruby -rjson -e 'puts JSON.pretty_generate(JSON.load($<))'"
+alias px="xmllint --format --encode UTF-8 -"

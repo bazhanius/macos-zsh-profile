@@ -1,0 +1,33 @@
+# Locale
+export LANG="ru_RU.UTF-8"
+export LC_COLLATE="ru_RU.UTF-8"
+export LC_CTYPE="ru_RU.UTF-8"
+export LC_MESSAGES="ru_RU.UTF-8"
+export LC_MONETARY="ru_RU.UTF-8"
+export LC_NUMERIC="ru_RU.UTF-8"
+export LC_TIME="ru_RU.UTF-8"
+export LC_ALL="ru_RU.UTF-8"
+# export LANG="ru_RU.UTF-8"
+# export LC_ALL="ru_RU.UTF-8"
+# Prompt colors
+autoload -U colors && colors
+set_prompts() {
+  PROMPT_EOL_MARK=""
+  PS1=$'\n'"%{$fg[green]%}%n @ %m%{$reset_color%} %{$fg[cyan]%}%~%{$reset_color%} %{$fg[green]%}❱%{$reset_color%} %{$fg[yellow]%}"
+  PS2="%{$fg[blue]%}>%{$reset_color%} "
+  PS3=$PS2
+  PS4="%{$fg[blue]%}+%{$reset_color%} "
+  # Сбросить настройки цвета между вводом и выводом
+  # trap 'tput sgr0 %{$reset_color%}' DEBUG
+  preexec () { echo -ne "\e[0m" }
+  # Для рута
+  if [ "$UID" = 0 ]; then
+      PS1=$'\n'"%{$fg[red]%}%n @ %m%{$reset_color%} %{$fg[cyan]%}%~%{$reset_color%} %{$fg[red]%}❱%{$reset_color%} %{$fg[yellow]%}"
+      PS2="%{$fg[red]%}>%{$reset_color%} "
+      PS3=$PS2
+      PS4="%{$fg[red]%}+%{$reset_color%} "
+  fi
+  export PS1 PS2 PS3 PS4
+}
+set_prompts
+unset -f set_prompts
